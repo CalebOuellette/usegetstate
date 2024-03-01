@@ -87,6 +87,8 @@ This works at the cost of adding an extra place to store the data. We will have 
 #### Enter usegetstate
 
 ```jsx
+import useGetState from "usegetstate";
+
 const ExampleComponent: React.FC = () => {
   const [count, setCount, getCount] = useGetState(countRef.current);
 
@@ -111,55 +113,62 @@ When using getState in your functions you ensure that you are always using the l
 How often have we done something like this?
 
 ```jsx
-import doesSomethingImportant from 'real-world-sideeffects'
+import doesSomethingImportant from "real-world-side-effects";
 
-const App: React.FC = ()=> {
+const App: React.FC = () => {
+  const [count, setCount, getCount] = useGetState(countRef.current);
 
-   const [count, setCount, getCount] = useGetState(countRef.current);
+  const onClick = () => {
+    setCount(count + 1);
+    someFunction();
+  };
 
-	const onClick = () => {
-		setCount(count + 1);
-		someFunction();
-	}
+  const someFunction = () => {
+    thatOtherFunction();
+  };
 
-	const someFunction() = () => thatOtherFunction();
+  const thatOtherFunction = () => {
+    doesSomethingImportant(count);
+  };
 
-	const thatOtherFunction = () => {
-		doesSomethingImportant(count)
-	}
-
-	return <div>
-		{count}
-		<button onClick={() => setCount(count + 1)}>increment</button>
-	</div>
-}
+  return (
+    <div>
+      {count}
+      <button onClick={() => setCount(count + 1)}>increment</button>
+    </div>
+  );
+};
 ```
 
 usegetstate Solves this too
 
 ```jsx
-import doesSomethingImportant from 'real-world-sideeffects'
+import useGetState from "usegetstate";
+import doesSomethingImportant from "real-world-sideeffects";
 
-const App: React.FC = ()=> {
+const App: React.FC = () => {
+  const [count, setCount, getCount] = useGetState(countRef.current);
 
-   const [count, setCount, getCount] = useGetState(countRef.current);
+  const onClick = () => {
+    setCount(count + 1);
+    someFunction();
+  };
 
-	const onClick = () => {
-		setCount(count + 1);
-		someFunction();
-	}
+  const someFunction = () => {
+    thatOtherFunction();
+  };
 
-	const someFunction() = () => thatOtherFunction();
+  const thatOtherFunction = () => {
+    doesSomethingImportant(getCount());
+  };
 
-	const thatOtherFunction = () => {
-		doesSomethingImportant(getCount())
-	}
-
-	return <div>
-		{count}
-		<button onClick={() => setCount(count + 1)}>increment</button>
-	</div>
-}
+  return (
+    <div>
+      {count}
+      <button onClick={() => setCount(count + 1)}>increment</button>
+    </div>
+  );
+};
 ```
 
 # Install

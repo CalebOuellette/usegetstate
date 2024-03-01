@@ -20,3 +20,5 @@ export function useGetState<T>(startingValue: T) {
 
   return [state, setStateInterceptor, getState] as const;
 }
+
+export default useGetState;
