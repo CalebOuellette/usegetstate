@@ -1,6 +1,6 @@
 {
   "name": "usegetstate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Pull the state you need",
   "main": "index.js",
   "types": "index.d.ts",
