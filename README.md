@@ -1,5 +1,31 @@
 # usegetstate
 
+usegetstate is a great way to pull the state from a react state hook. It works by storing a ref of the state and exposing a function to get that state. A simple example looks like this
+
+```jsx
+import useGetState from "usegetstate";
+
+const ExampleComponent: React.FC = () => {
+  const [count, setCount, getCount] = useGetState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log(getCount());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div>
+      {count}
+      <button onClick={() => setCount(count + 1)}>increment</button>
+    </div>
+  );
+};
+```
+
+#### Motivation
+
 What is the best way to console log count exactly once a second?
 
 ```jsx
@@ -169,10 +195,4 @@ const App: React.FC = () => {
     </div>
   );
 };
-```
-
-# Install
-
-```bash
-npm install usegetstate
 ```
